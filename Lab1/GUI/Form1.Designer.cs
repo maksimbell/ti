@@ -41,7 +41,7 @@
             this.btnEncrypt.Location = new System.Drawing.Point(66, 344);
             this.btnEncrypt.Name = "btnEncrypt";
             this.btnEncrypt.Size = new System.Drawing.Size(94, 29);
-            this.btnEncrypt.TabIndex = 0;
+            this.btnEncrypt.TabIndex = 3;
             this.btnEncrypt.Text = "Encrypt";
             this.btnEncrypt.UseVisualStyleBackColor = true;
             this.btnEncrypt.Click += new System.EventHandler(this.btnEncrypt_Click);
@@ -51,9 +51,10 @@
             this.btnDecrypt.Location = new System.Drawing.Point(179, 344);
             this.btnDecrypt.Name = "btnDecrypt";
             this.btnDecrypt.Size = new System.Drawing.Size(94, 29);
-            this.btnDecrypt.TabIndex = 1;
+            this.btnDecrypt.TabIndex = 4;
             this.btnDecrypt.Text = "Decrypt";
             this.btnDecrypt.UseVisualStyleBackColor = true;
+            this.btnDecrypt.Click += new System.EventHandler(this.btnDecrypt_Click);
             // 
             // lbChoice
             // 
@@ -61,7 +62,7 @@
             this.lbChoice.Location = new System.Drawing.Point(66, 46);
             this.lbChoice.Name = "lbChoice";
             this.lbChoice.Size = new System.Drawing.Size(64, 20);
-            this.lbChoice.TabIndex = 2;
+            this.lbChoice.TabIndex = 0;
             this.lbChoice.Text = "Method:";
             this.lbChoice.Click += new System.EventHandler(this.label1_Click);
             // 
@@ -79,7 +80,7 @@
             this.rtbKey.Location = new System.Drawing.Point(66, 200);
             this.rtbKey.Name = "rtbKey";
             this.rtbKey.Size = new System.Drawing.Size(207, 120);
-            this.rtbKey.TabIndex = 6;
+            this.rtbKey.TabIndex = 2;
             this.rtbKey.Text = "";
             // 
             // cbMethods
@@ -92,7 +93,7 @@
             this.cbMethods.Location = new System.Drawing.Point(66, 73);
             this.cbMethods.Name = "cbMethods";
             this.cbMethods.Size = new System.Drawing.Size(151, 28);
-            this.cbMethods.TabIndex = 7;
+            this.cbMethods.TabIndex = 1;
             // 
             // Form1
             // 

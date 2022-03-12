@@ -2,9 +2,9 @@
 
 public static class ColumnCryptographer
 {
+    public static string alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
     public static string Encrypt(string message, string key)
     {
-        string alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
         string cipher = String.Empty;
         int rowsNumber = message.Length / key.Length + 3;
         char[,] table = new char[rowsNumber, key.Length];
@@ -57,9 +57,71 @@ public static class ColumnCryptographer
         return cipher.ToUpper();
     }
 
-    public static string Decrypt()
+    public static string Decrypt(string cipher, string key)
     {
+        string message = String.Empty;
+        int rowsNumber = cipher.Length / key.Length + 3;
+        char[,] table = new char[rowsNumber, key.Length];
 
-        return "LOl";
+        for (int i = 0; i < key.Length; i++)
+        {
+            table[0, i] = key[i];
+        }
+
+        int counter = 0;
+        for (int i = 0; i < alphabet.Length; i++)
+        {
+            for (int j = 0; j < key.Length; j++)
+            {
+                if (table[0, j] == alphabet[i])
+                {
+                    table[1, j] = (char)counter;
+                    counter++;
+                }
+            }
+        }
+
+        int row = 2;
+        int col = 0;
+        int emptyCol = cipher.Length % key.Length;
+        int lastRow = rowsNumber - 1;
+        counter = 0;
+
+        for (int i = 0; i < key.Length; i++)
+        {
+            for (int j = 0; j < key.Length; j++)
+            {
+                if (table[1, j] == (char)i)
+                {
+                    col = j;
+                    row = 2;
+                    while (row < rowsNumber)
+                    {
+                        if ((col < emptyCol || lastRow > row) && counter < cipher.Length)
+                        {
+                            table[row, col] = cipher[counter];
+                            counter++;
+                        }
+                        row++;
+                    }
+                }
+            }
+        }
+
+        row = 1;
+        col = 0;
+        for (int i = 0; i < cipher.Length; i++)
+        {
+            if (i % key.Length == 0)
+            {
+                row++;
+                col = 0;
+            }
+
+            message+=table[row, col];
+            col++;
+        }
+
+        return message.ToUpper();
     }
 }
