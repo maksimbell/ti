@@ -27,7 +27,8 @@ namespace GUI
         {
             string path = @"./m.txt";
             string message = String.Empty;
-            
+            string key = rtbKey.Text.ToLower();
+
             if (File.Exists(path))
             {
                 message = File.ReadAllText(path).ToLower().Replace(" ", "");
@@ -35,11 +36,12 @@ namespace GUI
                 {
                     case 0:
                         
-                        string key = rtbKey.Text.ToLower();
+                        
                         File.WriteAllText(@"./c.txt", ColumnCryptographer.Encrypt(message, key));
                         break;
 
                     case 1:
+                        File.WriteAllText(@"./c.txt", VigenereCryptographer.Encrypt(message, key));
                         break;
 
                     case 2:
@@ -76,8 +78,11 @@ namespace GUI
                     case 0:
                         File.WriteAllText(@"./m.txt", ColumnCryptographer.Decrypt(cipher, key));
                         break;
+                    
                     case 1:
+                        File.WriteAllText(@"./m.txt", VigenereCryptographer.Decrypt(cipher, key));
                         break;
+
                     case 2:
                         char[,] keyMatrix = new char[5, 5];
                         string[] lines = File.ReadAllLines(@"./playfair.txt").Take(5).ToArray();

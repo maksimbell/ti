@@ -134,13 +134,13 @@ namespace GUI
 
                 if (char1.row == char2.row)
                 {
-                    char1.col = (char1.col - 1) % 5;
-                    char2.col = (char2.col - 1) % 5;
+                    char1.col = (char1.col + 4) % 5;
+                    char2.col = (char2.col + 4) % 5;
                 }
                 else if (char1.col == char2.col)
                 {
-                    char1.row = (char1.row - 1) % 5;
-                    char2.row = (char2.row - 1) % 5;
+                    char1.row = (char1.row + 4) % 5;
+                    char2.row = (char2.row + 4) % 5;
                 }
                 else
                 {
