@@ -32,7 +32,7 @@ namespace GUI
 
             if (File.Exists(path))
             {
-                message = File.ReadAllText(path).ToLower().Replace(" ", "");
+                message = File.ReadAllText(path).ToLower();
                 switch (cbMethods.SelectedIndex)
                 {
                     case 0:
@@ -73,7 +73,7 @@ namespace GUI
 
             if (File.Exists(path))
             {
-                cipher = File.ReadAllText(path).ToLower().Replace(" ", "");
+                cipher = File.ReadAllText(path).ToLower();
                 switch (cbMethods.SelectedIndex)
                 {
                     case 0:

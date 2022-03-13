@@ -88,7 +88,7 @@
             // 
             this.rtbKey.Location = new System.Drawing.Point(26, 48);
             this.rtbKey.Name = "rtbKey";
-            this.rtbKey.Size = new System.Drawing.Size(207, 120);
+            this.rtbKey.Size = new System.Drawing.Size(207, 117);
             this.rtbKey.TabIndex = 2;
             this.rtbKey.Text = "";
             this.rtbKey.TextChanged += new System.EventHandler(this.rtbKey_TextChanged);
