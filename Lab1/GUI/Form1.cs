@@ -9,7 +9,8 @@ namespace GUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+           btnDecrypt.Enabled = false;
+           btnEncrypt.Enabled = false;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -115,6 +116,8 @@ namespace GUI
             {
                 rtbKey.Clear();
                 panelKey.Hide();
+                btnDecrypt.Enabled = true;
+                btnEncrypt.Enabled = true;
             }
             else
             {
@@ -125,6 +128,20 @@ namespace GUI
         private void lbKey_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void rtbKey_TextChanged(object sender, EventArgs e)
+        {
+            if (rtbKey.Text.Length > 0 && panelKey.Visible)
+            {
+                btnDecrypt.Enabled = true; 
+                btnEncrypt.Enabled = true;
+            }
+            else
+            {
+                btnDecrypt.Enabled = false;
+                btnEncrypt.Enabled = false;
+            }
         }
     }
 }

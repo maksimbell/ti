@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btnEncrypt = new System.Windows.Forms.Button();
             this.btnDecrypt = new System.Windows.Forms.Button();
             this.lbChoice = new System.Windows.Forms.Label();
@@ -64,6 +65,7 @@
             // lbChoice
             // 
             this.lbChoice.AutoSize = true;
+            this.lbChoice.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lbChoice.Location = new System.Drawing.Point(22, 16);
             this.lbChoice.Name = "lbChoice";
             this.lbChoice.Size = new System.Drawing.Size(64, 20);
@@ -74,6 +76,7 @@
             // lbKey
             // 
             this.lbKey.AutoSize = true;
+            this.lbKey.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lbKey.Location = new System.Drawing.Point(26, 14);
             this.lbKey.Name = "lbKey";
             this.lbKey.Size = new System.Drawing.Size(179, 20);
@@ -88,6 +91,7 @@
             this.rtbKey.Size = new System.Drawing.Size(207, 120);
             this.rtbKey.TabIndex = 2;
             this.rtbKey.Text = "";
+            this.rtbKey.TextChanged += new System.EventHandler(this.rtbKey_TextChanged);
             // 
             // cbMethods
             // 
@@ -111,6 +115,7 @@
             // 
             // panelKey
             // 
+            this.panelKey.BackColor = System.Drawing.Color.Transparent;
             this.panelKey.Controls.Add(this.rtbKey);
             this.panelKey.Controls.Add(this.lbKey);
             this.panelKey.Location = new System.Drawing.Point(66, 171);
@@ -120,6 +125,7 @@
             // 
             // panelMethod
             // 
+            this.panelMethod.BackColor = System.Drawing.Color.Transparent;
             this.panelMethod.Controls.Add(this.cbMethods);
             this.panelMethod.Controls.Add(this.btnEncrypt);
             this.panelMethod.Controls.Add(this.btnDecrypt);
@@ -133,9 +139,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(622, 428);
             this.Controls.Add(this.panelMethod);
             this.Controls.Add(this.panelKey);
+            this.MaximumSize = new System.Drawing.Size(640, 475);
+            this.MinimumSize = new System.Drawing.Size(640, 475);
             this.Name = "Form1";
             this.Text = "Chil bro, chill and flex bro";
             this.Load += new System.EventHandler(this.Form1_Load);
