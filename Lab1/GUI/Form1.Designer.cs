@@ -34,11 +34,16 @@
             this.lbKey = new System.Windows.Forms.Label();
             this.rtbKey = new System.Windows.Forms.RichTextBox();
             this.cbMethods = new System.Windows.Forms.ComboBox();
+            this.openFileDialog_File = new System.Windows.Forms.OpenFileDialog();
+            this.panelKey = new System.Windows.Forms.Panel();
+            this.panelMethod = new System.Windows.Forms.Panel();
+            this.panelKey.SuspendLayout();
+            this.panelMethod.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnEncrypt
             // 
-            this.btnEncrypt.Location = new System.Drawing.Point(66, 344);
+            this.btnEncrypt.Location = new System.Drawing.Point(22, 77);
             this.btnEncrypt.Name = "btnEncrypt";
             this.btnEncrypt.Size = new System.Drawing.Size(94, 29);
             this.btnEncrypt.TabIndex = 3;
@@ -48,7 +53,7 @@
             // 
             // btnDecrypt
             // 
-            this.btnDecrypt.Location = new System.Drawing.Point(179, 344);
+            this.btnDecrypt.Location = new System.Drawing.Point(122, 77);
             this.btnDecrypt.Name = "btnDecrypt";
             this.btnDecrypt.Size = new System.Drawing.Size(94, 29);
             this.btnDecrypt.TabIndex = 4;
@@ -59,7 +64,7 @@
             // lbChoice
             // 
             this.lbChoice.AutoSize = true;
-            this.lbChoice.Location = new System.Drawing.Point(66, 46);
+            this.lbChoice.Location = new System.Drawing.Point(22, 16);
             this.lbChoice.Name = "lbChoice";
             this.lbChoice.Size = new System.Drawing.Size(64, 20);
             this.lbChoice.TabIndex = 0;
@@ -69,15 +74,16 @@
             // lbKey
             // 
             this.lbKey.AutoSize = true;
-            this.lbKey.Location = new System.Drawing.Point(66, 166);
+            this.lbKey.Location = new System.Drawing.Point(26, 14);
             this.lbKey.Name = "lbKey";
             this.lbKey.Size = new System.Drawing.Size(179, 20);
             this.lbKey.TabIndex = 4;
             this.lbKey.Text = "Encryption/decription key";
+            this.lbKey.Click += new System.EventHandler(this.lbKey_Click);
             // 
             // rtbKey
             // 
-            this.rtbKey.Location = new System.Drawing.Point(66, 200);
+            this.rtbKey.Location = new System.Drawing.Point(26, 48);
             this.rtbKey.Name = "rtbKey";
             this.rtbKey.Size = new System.Drawing.Size(207, 120);
             this.rtbKey.TabIndex = 2;
@@ -85,32 +91,59 @@
             // 
             // cbMethods
             // 
+            this.cbMethods.DisplayMember = "(нет)";
             this.cbMethods.FormattingEnabled = true;
             this.cbMethods.Items.AddRange(new object[] {
             "Column",
             "Vigenère",
             "Playfair"});
-            this.cbMethods.Location = new System.Drawing.Point(66, 73);
+            this.cbMethods.Location = new System.Drawing.Point(22, 43);
             this.cbMethods.Name = "cbMethods";
-            this.cbMethods.Size = new System.Drawing.Size(151, 28);
+            this.cbMethods.Size = new System.Drawing.Size(194, 28);
             this.cbMethods.TabIndex = 1;
+            this.cbMethods.Text = "Column";
+            this.cbMethods.SelectionChangeCommitted += new System.EventHandler(this.cbMethods_SelectionChangeCommitted);
+            // 
+            // openFileDialog_File
+            // 
+            this.openFileDialog_File.FileName = "openFileDialog1";
+            this.openFileDialog_File.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
+            // panelKey
+            // 
+            this.panelKey.Controls.Add(this.rtbKey);
+            this.panelKey.Controls.Add(this.lbKey);
+            this.panelKey.Location = new System.Drawing.Point(66, 171);
+            this.panelKey.Name = "panelKey";
+            this.panelKey.Size = new System.Drawing.Size(258, 186);
+            this.panelKey.TabIndex = 5;
+            // 
+            // panelMethod
+            // 
+            this.panelMethod.Controls.Add(this.cbMethods);
+            this.panelMethod.Controls.Add(this.btnEncrypt);
+            this.panelMethod.Controls.Add(this.btnDecrypt);
+            this.panelMethod.Controls.Add(this.lbChoice);
+            this.panelMethod.Location = new System.Drawing.Point(66, 40);
+            this.panelMethod.Name = "panelMethod";
+            this.panelMethod.Size = new System.Drawing.Size(258, 125);
+            this.panelMethod.TabIndex = 6;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(622, 428);
-            this.Controls.Add(this.cbMethods);
-            this.Controls.Add(this.rtbKey);
-            this.Controls.Add(this.lbKey);
-            this.Controls.Add(this.lbChoice);
-            this.Controls.Add(this.btnDecrypt);
-            this.Controls.Add(this.btnEncrypt);
+            this.Controls.Add(this.panelMethod);
+            this.Controls.Add(this.panelKey);
             this.Name = "Form1";
             this.Text = "Chil bro, chill and flex bro";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.panelKey.ResumeLayout(false);
+            this.panelKey.PerformLayout();
+            this.panelMethod.ResumeLayout(false);
+            this.panelMethod.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -122,5 +155,8 @@
         private Label lbKey;
         private RichTextBox rtbKey;
         private ComboBox cbMethods;
+        private OpenFileDialog openFileDialog_File;
+        private Panel panelKey;
+        private Panel panelMethod;
     }
 }
