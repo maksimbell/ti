@@ -44,7 +44,14 @@ namespace GUI
                 prev = message[pointer];
                 if (prev == cur)
                 {
-                    message = message.Insert(pointer + 1, "x");
+                    if (prev == 'x')
+                    {
+                        message = message.Insert(pointer + 1, "y");
+                    }
+                    else
+                    {
+                        message = message.Insert(pointer + 1, "x");
+                    }
                     pointer++;
                 }
                 pointer++;
@@ -52,9 +59,17 @@ namespace GUI
 
             if (message.Length % 2 != 0)
             {
-                message += "x";
+                if (message[message.Length-1] == 'x')
+                {
+                    message += "y";
+                }
+                else
+                {
+                    message += "x";
+                }
             }
 
+            messageCopy = message;
             cipher = message;
 
             int len = 5;
@@ -83,7 +98,6 @@ namespace GUI
                     i++;
                 }
 
-
                 if (char1.row == char2.row)
                 {
                     char1.col = (char1.col + 1) % 5;
@@ -108,14 +122,14 @@ namespace GUI
                 currentPair++;
             }
 
-            for (int i = 0; i < messageCopy.Length; i++)
-            {
-                if (messageCopy[i] != message[i])
-                {
-                    message = message.Insert(i, messageCopy[i].ToString());
-                    cipher = cipher.Insert(i, messageCopy[i].ToString());
-                }
-            }
+            //for (int i = 0; i < messageCopy.Length; i++)
+            //{
+            //   if (messageCopy[i] != message[i])
+            //    {
+            //        message = message.Insert(i, messageCopy[i].ToString());
+            //        cipher = cipher.Insert(i, messageCopy[i].ToString());
+            //    }
+            //}
 
             return cipher.ToUpper();
         }
@@ -197,14 +211,14 @@ namespace GUI
                 currentPair++;
             }
 
-            for (int i = 0; i < cipherCopy.Length; i++)
-            {
-                if (cipherCopy[i] != cipher[i])
-                {
-                    message = message.Insert(i, cipherCopy[i].ToString());
-                    cipher = cipher.Insert(i, cipherCopy[i].ToString());
-                }
-            }
+            //for (int i = 0; i < cipherCopy.Length; i++)
+            //{
+            //    if (cipherCopy[i] != cipher[i])
+            //    {
+            //        message = message.Insert(i, cipherCopy[i].ToString());
+            //        cipher = cipher.Insert(i, cipherCopy[i].ToString());
+            //    }
+            //}
 
             return message.ToUpper();
         }

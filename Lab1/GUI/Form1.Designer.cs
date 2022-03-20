@@ -79,9 +79,9 @@
             this.lbKey.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.lbKey.Location = new System.Drawing.Point(26, 14);
             this.lbKey.Name = "lbKey";
-            this.lbKey.Size = new System.Drawing.Size(179, 20);
+            this.lbKey.Size = new System.Drawing.Size(182, 20);
             this.lbKey.TabIndex = 4;
-            this.lbKey.Text = "Encryption/decription key";
+            this.lbKey.Text = "Encryption/decryption key";
             this.lbKey.Click += new System.EventHandler(this.lbKey_Click);
             // 
             // rtbKey

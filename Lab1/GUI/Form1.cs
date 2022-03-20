@@ -28,7 +28,7 @@ namespace GUI
         {
             string path = @"./m.txt";
             string message = String.Empty;
-            string key = rtbKey.Text.ToLower();
+            string key = rtbKey.Text.ToLower().Replace(" ", "");
 
             if (File.Exists(path))
             {
@@ -69,7 +69,7 @@ namespace GUI
         {
             string path = @"./c.txt";
             string cipher = String.Empty;
-            string key = rtbKey.Text.ToLower();
+            string key = rtbKey.Text.ToLower().Replace(" ", "");
 
             if (File.Exists(path))
             {

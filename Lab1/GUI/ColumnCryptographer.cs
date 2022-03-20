@@ -11,6 +11,17 @@ namespace GUI
             string cipher = string.Empty;
 
             int p = 0;
+            while (p < key.Length)
+            {
+                if (alphabet.IndexOf(key[p]) == -1)
+                {
+                    key = key.Remove(p, 1);
+                    p--;
+                }
+                p++;
+            }
+
+            p = 0;
             while (p < message.Length)
             {
                 if (alphabet.IndexOf(message[p]) == -1)
@@ -72,6 +83,10 @@ namespace GUI
 
             for (int i = 0; i < messageCopy.Length; i++)
             {
+                if (i == message.Length)
+                {
+                    message += " ";
+                }
                 if (messageCopy[i] != message[i])
                 {
                     message = message.Insert(i, messageCopy[i].ToString());
@@ -87,7 +102,19 @@ namespace GUI
             string message = string.Empty;
             string cipherCopy = cipher;
 
+
             int p = 0;
+            while (p < key.Length)
+            {
+                if (alphabet.IndexOf(key[p]) == -1)
+                {
+                    key = key.Remove(p, 1);
+                    p--;
+                }
+                p++;
+            }
+
+            p = 0;
             while (p < cipher.Length)
             {
                 if (alphabet.IndexOf(cipher[p]) == -1)
@@ -162,6 +189,10 @@ namespace GUI
 
             for (int i = 0; i < cipherCopy.Length; i++)
             {
+                if (i == cipher.Length)
+                {
+                    cipher += " ";
+                }
                 if (cipherCopy[i] != cipher[i])
                 {
                     message = message.Insert(i, cipherCopy[i].ToString());
