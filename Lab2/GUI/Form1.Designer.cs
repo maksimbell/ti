@@ -33,6 +33,7 @@
             this.btnEcrypt = new System.Windows.Forms.Button();
             this.btnDecrypt = new System.Windows.Forms.Button();
             this.btnKey = new System.Windows.Forms.Button();
+            this.lblTest = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // rtbRegister
@@ -79,12 +80,22 @@
             this.btnKey.TabIndex = 4;
             this.btnKey.Text = "Generate key";
             this.btnKey.UseVisualStyleBackColor = true;
+            this.btnKey.Click += new System.EventHandler(this.btnKey_Click);
+            // 
+            // lblTest
+            // 
+            this.lblTest.AutoSize = true;
+            this.lblTest.Location = new System.Drawing.Point(125, 366);
+            this.lblTest.Name = "lblTest";
+            this.lblTest.Size = new System.Drawing.Size(0, 20);
+            this.lblTest.TabIndex = 5;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(627, 450);
+            this.Controls.Add(this.lblTest);
             this.Controls.Add(this.btnKey);
             this.Controls.Add(this.btnDecrypt);
             this.Controls.Add(this.btnEcrypt);
@@ -104,5 +115,6 @@
         private Button btnEcrypt;
         private Button btnDecrypt;
         private Button btnKey;
+        private Label lblTest;
     }
 }
