@@ -8,46 +8,84 @@ namespace GUI
 {
     public class Register
     {
-        private const int size = 23;
+        private static Register? instance;//допускает значение null
 
-        private UInt32 max;
+        private const int SIZE = 23;
+        private const int BITS = 8;
 
-        private UInt32 state;
+        private UInt32 state, poppedBit, newBit, max;
 
-        private UInt32 start;
+        private readonly int[] bits;
 
-        private int[] bits;
+        private string key;
 
-        private UInt32 key;
+        public UInt32 State { get => state; set => state = value; }
 
-        public uint State { get => state; set => state = value; }
+        public int Size { get => SIZE; }
 
-        public Register(UInt32 start, int[] bits)
+        public List<Boolean> keyList = new List<Boolean>();
+        public List<Boolean> bitsList = new List<Boolean>();
+
+        public string Key { get => key; set => key = value; }
+
+        private Register(UInt32 start, int[] bits)
         {
-            this.start = start;
             this.State = start;
             this.bits = bits; 
             
-            max = (UInt32)Math.Pow(2, size) - 1;
-            key = 0;
+            max = (UInt32)Math.Pow(2, SIZE) - 1;
+            //key = String.Empty;
+        }
+
+        public static Register getInstance(UInt32 start, int[] bits)
+        {
+            if (instance == null)
+            {
+                Register.instance = new Register(start, bits);
+            }
+
+            return instance;
         }
 
         public void Shift()
         {
-            UInt32 bit = ((State & (UInt32)Math.Pow(2, bits[0])) >> bits[0]) ^ ((State & (UInt32)Math.Pow(2, bits[1])) >> bits[1]);
+            newBit = ((State & (UInt32)((2 << bits[0]) - 1)) >> bits[0]) ^ ((State & (UInt32)((2 << bits[1]) - 1)) >> bits[1]);
+            poppedBit = (State & max) >> (SIZE - 1);
 
-            ShiftKey(bit);
-            State = (State << 1) & max ^ bit;
+            ShiftKey(poppedBit);
+            State = (State << 1) & max ^ newBit;
         }
 
         public void ShiftKey(UInt32 bit)
         {
-            key = (key << 1) ^ bit; 
+            //key += bit.ToString(); 
+            bitsList.Add(bit == 1);
+            if (bitsList.Count % BITS == 0)
+            {
+                for (int i = BITS - 1; i > -1; i--)
+                {
+                    keyList.Add(bitsList[i]);
+                }
+                bitsList = new List<bool> { };
+            }
         }
 
-        public UInt32 GenerateKey()
+        public void GenerateKey(int len)
         {
-            return key;
+            ResetKey();
+
+            keyList.Capacity = len;
+
+            for (int i = 0; i < len; i++)
+            {
+                this.Shift();
+            }
+        }
+
+        public void ResetKey()
+        {
+            keyList.Clear();
+            bitsList.Clear();
         }
     }
 }
