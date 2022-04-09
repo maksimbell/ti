@@ -71,16 +71,37 @@ namespace GUI
             return bytes[0];
         }
 
+        private void writeMessageBinary(byte[] m)
+        {
+            foreach (byte b in m)
+            {
+                tbMessage.Text += Convert.ToString(b, 2).PadLeft(BITS, '0');
+            }
+        }
+
         private void writeKeyBinary(byte[] k)
         {
             foreach (byte b in k)
             {
-                File.WriteAllText(keyBin, "AA");
+                tbKey.Text += Convert.ToString(b, 2).PadLeft(BITS, '0');
+            }
+        }
+
+        private void writeCipherBinary(byte[] c)
+        {
+            foreach (byte b in c)
+            {
+                tbCipher.Text += Convert.ToString(b, 2).PadLeft(BITS, '0');
             }
         }
 
         private void btnEcrypt_Click(object sender, EventArgs e)
         {
+            tbCipher.Text = String.Empty;
+            tbKey.Text = String.Empty;
+            tbMessage.Text = String.Empty;
+
+
             byte[] m = File.ReadAllBytes(inputFile);
             byte[] c = new byte[m.Length];
             byte[] k = new byte[m.Length];
@@ -97,8 +118,12 @@ namespace GUI
             File.WriteAllBytes(outputFile, c);
             File.WriteAllBytes(keyFile, k);
 
-            writeKeyBinary(k);
-
+            if (cbBinary.Checked)
+            {
+                writeMessageBinary(m);
+                writeKeyBinary(k);
+                writeCipherBinary(c);
+            }
      
         }
 
