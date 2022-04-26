@@ -16,7 +16,7 @@ namespace GUI
         private void btnEncrypt_Click(object sender, EventArgs e)
         {
             handler.Reset(int.Parse(tbPrime1.Text), int.Parse(tbPrime2.Text), int.Parse(tbRan.Text));
-            lblRan.Text =  handler.Encrypt();
+            rtbOutput.Text =  handler.Encrypt("BSUIR".ToUpper());
         }
 
         private void btnDecrypt_Click(object sender, EventArgs e)

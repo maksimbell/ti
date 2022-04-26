@@ -9,10 +9,9 @@ namespace GUI
     public class RabinHandler
     {
         private static RabinHandler Instance;
+        private int P { get; set; }
 
-        //private int P { get; set; }
-
-        //private int Q { get; set; }
+        private int Q { get; set; }
        
         private int B { get; set; }
         
@@ -28,20 +27,31 @@ namespace GUI
             return Instance;
         }
 
-        public string Encrypt()
+        public string Encrypt(string m)
         {
-            return String.Empty;
+            string c = String.Empty;
+            int n = P * Q;
+            int cipherIndex, messageIndex;
+            //also check for b<n outside
+            foreach (byte letter in m)
+            {
+                cipherIndex = letter * (letter + B) % n;
+                c += cipherIndex + " ";
+            }
+
+
+            return c;
         }
 
-        public string Decrypt()
+        public string Decrypt(string c)
         {
             return String.Empty;
         }
 
         public void Reset(int p, int q, int b)
         {
-            //P = p;
-            //Q = q;
+            P = p;
+            Q = q;
             B = b;
         }
     }

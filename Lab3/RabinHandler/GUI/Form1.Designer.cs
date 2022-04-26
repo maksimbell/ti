@@ -36,6 +36,7 @@
             this.tbRan = new System.Windows.Forms.TextBox();
             this.btnEncrypt = new System.Windows.Forms.Button();
             this.btnDecrypt = new System.Windows.Forms.Button();
+            this.rtbOutput = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // lblPrime1
@@ -79,7 +80,7 @@
             this.tbPrime2.Name = "tbPrime2";
             this.tbPrime2.Size = new System.Drawing.Size(125, 27);
             this.tbPrime2.TabIndex = 4;
-            this.tbPrime2.Text = "17";
+            this.tbPrime2.Text = "19";
             // 
             // tbRan
             // 
@@ -87,7 +88,7 @@
             this.tbRan.Name = "tbRan";
             this.tbRan.Size = new System.Drawing.Size(125, 27);
             this.tbRan.TabIndex = 5;
-            this.tbRan.Text = "111";
+            this.tbRan.Text = "173";
             // 
             // btnEncrypt
             // 
@@ -109,11 +110,20 @@
             this.btnDecrypt.UseVisualStyleBackColor = true;
             this.btnDecrypt.Click += new System.EventHandler(this.btnDecrypt_Click);
             // 
+            // rtbOutput
+            // 
+            this.rtbOutput.Location = new System.Drawing.Point(270, 98);
+            this.rtbOutput.Name = "rtbOutput";
+            this.rtbOutput.Size = new System.Drawing.Size(221, 159);
+            this.rtbOutput.TabIndex = 8;
+            this.rtbOutput.Text = "";
+            // 
             // RabinForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(673, 373);
+            this.ClientSize = new System.Drawing.Size(599, 373);
+            this.Controls.Add(this.rtbOutput);
             this.Controls.Add(this.btnDecrypt);
             this.Controls.Add(this.btnEncrypt);
             this.Controls.Add(this.tbRan);
@@ -122,6 +132,8 @@
             this.Controls.Add(this.lblRan);
             this.Controls.Add(this.lblPrime2);
             this.Controls.Add(this.lblPrime1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "RabinForm";
             this.Text = "ring ring...";
             this.Load += new System.EventHandler(this.RabinForm_Load);
@@ -140,5 +152,6 @@
         private TextBox tbRan;
         private Button btnEncrypt;
         private Button btnDecrypt;
+        private RichTextBox rtbOutput;
     }
 }
