@@ -2,7 +2,7 @@ namespace GUI
 {
     public partial class RabinForm : Form
     {
-        RabinHandler handler;
+        private RabinHandler handler;
         public RabinForm()
         {
             InitializeComponent();
@@ -10,7 +10,18 @@ namespace GUI
 
         private void RabinForm_Load(object sender, EventArgs e)
         {
-            handler = RabinHandler.getInstance(0, 0, 0);
+            handler = RabinHandler.getInstance();
+        }
+
+        private void btnEncrypt_Click(object sender, EventArgs e)
+        {
+            handler.Reset(int.Parse(tbPrime1.Text), int.Parse(tbPrime2.Text), int.Parse(tbRan.Text));
+            lblRan.Text =  handler.Encrypt();
+        }
+
+        private void btnDecrypt_Click(object sender, EventArgs e)
+        {
+            //nothing
         }
     }
 }

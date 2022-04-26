@@ -34,7 +34,8 @@
             this.tbPrime1 = new System.Windows.Forms.TextBox();
             this.tbPrime2 = new System.Windows.Forms.TextBox();
             this.tbRan = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnEncrypt = new System.Windows.Forms.Button();
+            this.btnDecrypt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblPrime1
@@ -70,6 +71,7 @@
             this.tbPrime1.Name = "tbPrime1";
             this.tbPrime1.Size = new System.Drawing.Size(125, 27);
             this.tbPrime1.TabIndex = 3;
+            this.tbPrime1.Text = "11";
             // 
             // tbPrime2
             // 
@@ -77,6 +79,7 @@
             this.tbPrime2.Name = "tbPrime2";
             this.tbPrime2.Size = new System.Drawing.Size(125, 27);
             this.tbPrime2.TabIndex = 4;
+            this.tbPrime2.Text = "17";
             // 
             // tbRan
             // 
@@ -84,23 +87,35 @@
             this.tbRan.Name = "tbRan";
             this.tbRan.Size = new System.Drawing.Size(125, 27);
             this.tbRan.TabIndex = 5;
+            this.tbRan.Text = "111";
             // 
-            // button1
+            // btnEncrypt
             // 
-            this.button1.Location = new System.Drawing.Point(373, 182);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 29);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnEncrypt.Location = new System.Drawing.Point(270, 271);
+            this.btnEncrypt.Name = "btnEncrypt";
+            this.btnEncrypt.Size = new System.Drawing.Size(94, 29);
+            this.btnEncrypt.TabIndex = 6;
+            this.btnEncrypt.Text = "Encrypt";
+            this.btnEncrypt.UseVisualStyleBackColor = true;
+            this.btnEncrypt.Click += new System.EventHandler(this.btnEncrypt_Click);
+            // 
+            // btnDecrypt
+            // 
+            this.btnDecrypt.Location = new System.Drawing.Point(397, 271);
+            this.btnDecrypt.Name = "btnDecrypt";
+            this.btnDecrypt.Size = new System.Drawing.Size(94, 29);
+            this.btnDecrypt.TabIndex = 7;
+            this.btnDecrypt.Text = "Decrypt";
+            this.btnDecrypt.UseVisualStyleBackColor = true;
+            this.btnDecrypt.Click += new System.EventHandler(this.btnDecrypt_Click);
             // 
             // RabinForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(673, 373);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnDecrypt);
+            this.Controls.Add(this.btnEncrypt);
             this.Controls.Add(this.tbRan);
             this.Controls.Add(this.tbPrime2);
             this.Controls.Add(this.tbPrime1);
@@ -123,6 +138,7 @@
         private TextBox tbPrime1;
         private TextBox tbPrime2;
         private TextBox tbRan;
-        private Button button1;
+        private Button btnEncrypt;
+        private Button btnDecrypt;
     }
 }
