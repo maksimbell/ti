@@ -27,25 +27,62 @@ namespace GUI
             return Instance;
         }
 
-        public string Encrypt(string m)
+        public byte[] Encrypt(byte[] m)
         {
-            string c = String.Empty;
-            int n = P * Q;
+            int N = P * Q;
             int cipherIndex, messageIndex;
+            byte[] c = new byte[m.Length];
             //also check for b<n outside
-            foreach (byte letter in m)
+            for (int i = 0; i < m.Length; i++)
             {
-                cipherIndex = letter * (letter + B) % n;
-                c += cipherIndex + " ";
+                cipherIndex = m[i] * (m[i] + B) % N;
+                c[i] = (byte)cipherIndex;
             }
-
 
             return c;
         }
 
-        public string Decrypt(string c)
+        public byte[] Decrypt(byte[] c)
         {
-            return String.Empty;
+            byte[] m =  new byte[c.Length];
+
+            int[] roots = Calculator.performEuclid(P, Q);
+            int N = P * Q;
+
+            int count = 0;
+            foreach (byte letter in c)
+            {
+                long D = ((B * B % N) + (4 * letter % N)) % N;
+                long Mp = Calculator.PerformFastExp(D, (P + 1) / 4, P);
+                long Mq = Calculator.PerformFastExp(D, (Q + 1) / 4, Q);
+
+                long[] d = new long[4]
+                {
+                      (roots[1] * P * Mq + roots[2] * Q * Mp) % N,
+                      N - ((roots[1] * P * Mq + roots[2] * Q * Mp) % N),
+                      (roots[1] * P * Mq - roots[2] * Q * Mp) % N,
+                      N - ((roots[1] * P * Mq - roots[2] * Q * Mp) % N)
+                };
+
+                foreach (int di in d)
+                {
+                    int index;
+                    if (((di - B) % 2) == 0)
+                        index = ((di - B) / 2) % N;
+                    else
+                        index = ((di - B + N) / 2) % N;
+
+                    if (index >= 0 && index < 256)
+                    {
+                        m[count] = (byte)index;
+                    }
+
+                }
+
+                count++;
+            }
+
+            return m;
         }
 
         public void Reset(int p, int q, int b)
