@@ -44,27 +44,27 @@
             this.lblPrime1.AutoSize = true;
             this.lblPrime1.Location = new System.Drawing.Point(86, 64);
             this.lblPrime1.Name = "lblPrime1";
-            this.lblPrime1.Size = new System.Drawing.Size(123, 20);
+            this.lblPrime1.Size = new System.Drawing.Size(17, 20);
             this.lblPrime1.TabIndex = 0;
-            this.lblPrime1.Text = "Prime number #1";
+            this.lblPrime1.Text = "P";
             // 
             // lblPrime2
             // 
             this.lblPrime2.AutoSize = true;
             this.lblPrime2.Location = new System.Drawing.Point(86, 150);
             this.lblPrime2.Name = "lblPrime2";
-            this.lblPrime2.Size = new System.Drawing.Size(123, 20);
+            this.lblPrime2.Size = new System.Drawing.Size(20, 20);
             this.lblPrime2.TabIndex = 1;
-            this.lblPrime2.Text = "Prime number #2";
+            this.lblPrime2.Text = "Q";
             // 
             // lblRan
             // 
             this.lblRan.AutoSize = true;
             this.lblRan.Location = new System.Drawing.Point(86, 237);
             this.lblRan.Name = "lblRan";
-            this.lblRan.Size = new System.Drawing.Size(120, 20);
+            this.lblRan.Size = new System.Drawing.Size(18, 20);
             this.lblRan.TabIndex = 2;
-            this.lblRan.Text = "Random number";
+            this.lblRan.Text = "B";
             // 
             // tbPrime1
             // 
@@ -72,7 +72,9 @@
             this.tbPrime1.Name = "tbPrime1";
             this.tbPrime1.Size = new System.Drawing.Size(125, 27);
             this.tbPrime1.TabIndex = 3;
-            this.tbPrime1.Text = "11";
+            this.tbPrime1.Text = "11111111111111111111111";
+            this.tbPrime1.TextChanged += new System.EventHandler(this.tbPrime1_TextChanged);
+            this.tbPrime1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPrime1_KeyPress);
             // 
             // tbPrime2
             // 
@@ -80,7 +82,9 @@
             this.tbPrime2.Name = "tbPrime2";
             this.tbPrime2.Size = new System.Drawing.Size(125, 27);
             this.tbPrime2.TabIndex = 4;
-            this.tbPrime2.Text = "19";
+            this.tbPrime2.Text = "900900900900990990990991";
+            this.tbPrime2.TextChanged += new System.EventHandler(this.tbPrime2_TextChanged);
+            this.tbPrime2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPrime2_KeyPress);
             // 
             // tbRan
             // 
@@ -88,13 +92,15 @@
             this.tbRan.Name = "tbRan";
             this.tbRan.Size = new System.Drawing.Size(125, 27);
             this.tbRan.TabIndex = 5;
-            this.tbRan.Text = "173";
+            this.tbRan.Text = "100100100100110110110109110";
+            this.tbRan.TextChanged += new System.EventHandler(this.tbRan_TextChanged);
+            this.tbRan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbRan_KeyPress);
             // 
             // btnEncrypt
             // 
-            this.btnEncrypt.Location = new System.Drawing.Point(270, 271);
+            this.btnEncrypt.Location = new System.Drawing.Point(253, 272);
             this.btnEncrypt.Name = "btnEncrypt";
-            this.btnEncrypt.Size = new System.Drawing.Size(94, 29);
+            this.btnEncrypt.Size = new System.Drawing.Size(118, 29);
             this.btnEncrypt.TabIndex = 6;
             this.btnEncrypt.Text = "Encrypt";
             this.btnEncrypt.UseVisualStyleBackColor = true;
@@ -102,9 +108,9 @@
             // 
             // btnDecrypt
             // 
-            this.btnDecrypt.Location = new System.Drawing.Point(397, 271);
+            this.btnDecrypt.Location = new System.Drawing.Point(398, 272);
             this.btnDecrypt.Name = "btnDecrypt";
-            this.btnDecrypt.Size = new System.Drawing.Size(94, 29);
+            this.btnDecrypt.Size = new System.Drawing.Size(118, 29);
             this.btnDecrypt.TabIndex = 7;
             this.btnDecrypt.Text = "Decrypt";
             this.btnDecrypt.UseVisualStyleBackColor = true;
@@ -112,9 +118,9 @@
             // 
             // rtbOutput
             // 
-            this.rtbOutput.Location = new System.Drawing.Point(270, 98);
+            this.rtbOutput.Location = new System.Drawing.Point(253, 98);
             this.rtbOutput.Name = "rtbOutput";
-            this.rtbOutput.Size = new System.Drawing.Size(221, 159);
+            this.rtbOutput.Size = new System.Drawing.Size(263, 159);
             this.rtbOutput.TabIndex = 8;
             this.rtbOutput.Text = "";
             // 

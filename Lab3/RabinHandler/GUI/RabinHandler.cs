@@ -3,40 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace GUI
 {
     public class RabinHandler
     {
         private static RabinHandler Instance;
-        private int P { get; set; }
+        public BigInteger P { get; set; }
 
-        private int Q { get; set; }
-       
-        private int B { get; set; }
-        
-        private RabinHandler(int p, int q, int b)
+        public BigInteger Q { get; set; }
+
+        public BigInteger B { get; set; }
+        public BigInteger N { get; set; }
+
+        private RabinHandler(BigInteger p, BigInteger q, BigInteger b)
         {
             Reset(p, q, b);
         }
 
-        public static RabinHandler getInstance(int p = 0, int q = 0, int b = 0)
+        public static RabinHandler getInstance(BigInteger p, BigInteger q, BigInteger b)
         {
             if (Instance == null)
                 Instance = new RabinHandler(p, q, b);
             return Instance;
         }
 
-        public byte[] Encrypt(byte[] m)
+        public BigInteger[] Encrypt(byte[] m)
         {
-            int N = P * Q;
-            int cipherIndex, messageIndex;
-            byte[] c = new byte[m.Length];
-            //also check for b<n outside
+            BigInteger cipherIndex, messageIndex;
+            BigInteger[] c = new BigInteger[m.Length];
+
             for (int i = 0; i < m.Length; i++)
             {
                 cipherIndex = m[i] * (m[i] + B) % N;
-                c[i] = (byte)cipherIndex;
+                c[i] = cipherIndex;
             }
 
             return c;
@@ -46,17 +47,16 @@ namespace GUI
         {
             byte[] m =  new byte[c.Length];
 
-            int[] roots = Calculator.performEuclid(P, Q);
-            int N = P * Q;
+            BigInteger[] roots = Calculator.PerformEuclid(P, Q);
 
             int count = 0;
             foreach (byte letter in c)
             {
-                long D = ((B * B % N) + (4 * letter % N)) % N;
-                long Mp = Calculator.PerformFastExp(D, (P + 1) / 4, P);
-                long Mq = Calculator.PerformFastExp(D, (Q + 1) / 4, Q);
+                BigInteger D = ((B * B % N) + (4 * letter % N)) % N;
+                BigInteger Mp = Calculator.PerformFastModExp(D, (P + 1) / 4, P);
+                BigInteger Mq = Calculator.PerformFastModExp(D, (Q + 1) / 4, Q);
 
-                long[] d = new long[4]
+                BigInteger[] d = new BigInteger[4]
                 {
                       (roots[1] * P * Mq + roots[2] * Q * Mp) % N,
                       N - ((roots[1] * P * Mq + roots[2] * Q * Mp) % N),
@@ -66,7 +66,7 @@ namespace GUI
 
                 foreach (int di in d)
                 {
-                    int index;
+                    BigInteger index;
                     if (((di - B) % 2) == 0)
                         index = ((di - B) / 2) % N;
                     else
@@ -85,11 +85,12 @@ namespace GUI
             return m;
         }
 
-        public void Reset(int p, int q, int b)
+        public void Reset(BigInteger p, BigInteger q, BigInteger b)
         {
             P = p;
             Q = q;
             B = b;
+            N = p * q;
         }
     }
 }
