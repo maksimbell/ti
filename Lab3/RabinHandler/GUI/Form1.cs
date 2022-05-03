@@ -7,6 +7,9 @@ namespace GUI
         private string Path = @"C:\Users\maksimbell\bsuir\4sem\ti\labs\Lab3\RabinHandler\GUI\bin\Debug\net6.0-windows\tests\";
 
         private RabinHandler handler;
+
+        private int MessageSize;
+
         public RabinForm()
         {
             InitializeComponent();
@@ -47,6 +50,8 @@ namespace GUI
             byte[] message = File.ReadAllBytes(Path + "m.txt");
             BigInteger[] cipher = new BigInteger[message.Length];
 
+            MessageSize = message.Length;
+
             handler.Reset(BigInteger.Parse(tbPrime1.Text), BigInteger.Parse(tbPrime2.Text), BigInteger.Parse(tbRan.Text));
             cipher = handler.Encrypt(message);
 
@@ -63,7 +68,6 @@ namespace GUI
                 }
             }
 
-
             File.WriteAllBytes(Path + "c.txt", result);
 
             rtbOutput.Text = "Cipher:\n";
@@ -79,12 +83,26 @@ namespace GUI
             {
                 return;
             }
-
+            //fix messagesize problem
             byte[] cipher = File.ReadAllBytes(Path + "c.txt");
             byte[] message = new byte[cipher.Length];
 
+            BigInteger[] bigCipher = new BigInteger[MessageSize];
+            byte[] temp = new byte[cipher.Length / MessageSize];
+
+            for(int i = 0; i < MessageSize; i++)
+            {
+                for (int j = 0; j < cipher.Length/MessageSize; j++)
+                {
+                    temp[j] = cipher[(cipher.Length/MessageSize) * i + j];
+                }
+
+                bigCipher[i] = new BigInteger(temp.Concat(new byte[] { 0 }).ToArray());
+                temp = new byte[cipher.Length/MessageSize];
+            }
+
             handler.Reset(BigInteger.Parse(tbPrime1.Text), BigInteger.Parse(tbPrime2.Text), BigInteger.Parse(tbRan.Text));
-            message = handler.Decrypt(cipher);
+            message = handler.Decrypt(bigCipher);
 
             File.WriteAllBytes(Path + "m.txt", message);
 

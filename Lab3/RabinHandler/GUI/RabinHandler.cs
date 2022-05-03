@@ -43,16 +43,16 @@ namespace GUI
             return c;
         }
 
-        public byte[] Decrypt(byte[] c)
+        public byte[] Decrypt(BigInteger[] c)
         {
             byte[] m =  new byte[c.Length];
 
             BigInteger[] roots = Calculator.PerformEuclid(P, Q);
 
             int count = 0;
-            foreach (byte letter in c)
+            foreach (BigInteger bigInt in c)
             {
-                BigInteger D = ((B * B % N) + (4 * letter % N)) % N;
+                BigInteger D = ((B * B % N) + (4 * bigInt % N)) % N;
                 BigInteger Mp = Calculator.PerformFastModExp(D, (P + 1) / 4, P);
                 BigInteger Mq = Calculator.PerformFastModExp(D, (Q + 1) / 4, Q);
 
@@ -64,7 +64,7 @@ namespace GUI
                       N - ((roots[1] * P * Mq - roots[2] * Q * Mp) % N)
                 };
 
-                foreach (int di in d)
+                foreach (BigInteger di in d)
                 {
                     BigInteger index;
                     if (((di - B) % 2) == 0)
