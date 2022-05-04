@@ -37,6 +37,7 @@
             this.btnEncrypt = new System.Windows.Forms.Button();
             this.btnDecrypt = new System.Windows.Forms.Button();
             this.rtbOutput = new System.Windows.Forms.RichTextBox();
+            this.cbSize = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblPrime1
@@ -72,7 +73,7 @@
             this.tbPrime1.Name = "tbPrime1";
             this.tbPrime1.Size = new System.Drawing.Size(125, 27);
             this.tbPrime1.TabIndex = 3;
-            this.tbPrime1.Text = "11111111111111111111111";
+            this.tbPrime1.Text = "3";
             this.tbPrime1.TextChanged += new System.EventHandler(this.tbPrime1_TextChanged);
             this.tbPrime1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPrime1_KeyPress);
             // 
@@ -82,7 +83,7 @@
             this.tbPrime2.Name = "tbPrime2";
             this.tbPrime2.Size = new System.Drawing.Size(125, 27);
             this.tbPrime2.TabIndex = 4;
-            this.tbPrime2.Text = "900900900900990990990991";
+            this.tbPrime2.Text = "523";
             this.tbPrime2.TextChanged += new System.EventHandler(this.tbPrime2_TextChanged);
             this.tbPrime2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPrime2_KeyPress);
             // 
@@ -92,7 +93,7 @@
             this.tbRan.Name = "tbRan";
             this.tbRan.Size = new System.Drawing.Size(125, 27);
             this.tbRan.TabIndex = 5;
-            this.tbRan.Text = "100100100100110110110109110";
+            this.tbRan.Text = "1";
             this.tbRan.TextChanged += new System.EventHandler(this.tbRan_TextChanged);
             this.tbRan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbRan_KeyPress);
             // 
@@ -124,11 +125,23 @@
             this.rtbOutput.TabIndex = 8;
             this.rtbOutput.Text = "";
             // 
+            // cbSize
+            // 
+            this.cbSize.AutoSize = true;
+            this.cbSize.Location = new System.Drawing.Point(253, 317);
+            this.cbSize.Name = "cbSize";
+            this.cbSize.Size = new System.Drawing.Size(92, 24);
+            this.cbSize.TabIndex = 9;
+            this.cbSize.Text = "print info";
+            this.cbSize.UseVisualStyleBackColor = true;
+            this.cbSize.CheckedChanged += new System.EventHandler(this.cbSize_CheckedChanged);
+            // 
             // RabinForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(599, 373);
+            this.Controls.Add(this.cbSize);
             this.Controls.Add(this.rtbOutput);
             this.Controls.Add(this.btnDecrypt);
             this.Controls.Add(this.btnEncrypt);
@@ -159,5 +172,6 @@
         private Button btnEncrypt;
         private Button btnDecrypt;
         private RichTextBox rtbOutput;
+        private CheckBox cbSize;
     }
 }

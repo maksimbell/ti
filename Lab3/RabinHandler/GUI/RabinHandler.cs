@@ -43,9 +43,16 @@ namespace GUI
             return c;
         }
 
-        public byte[] Decrypt(BigInteger[] c)
+        public byte[] Decrypt(BigInteger[] c, ref List<BigInteger[]> allBytes)
         {
             byte[] m =  new byte[c.Length];
+
+            allBytes = new List<BigInteger[]>();
+            for (int i = 0; i < c.Length; i++)
+            {
+                BigInteger[] bigInt = new BigInteger[4];
+                allBytes.Add(bigInt);
+            }
 
             BigInteger[] roots = Calculator.PerformEuclid(P, Q);
 
@@ -64,6 +71,7 @@ namespace GUI
                       N - ((roots[1] * P * Mq - roots[2] * Q * Mp) % N)
                 };
 
+                int p = 0;
                 foreach (BigInteger di in d)
                 {
                     BigInteger index;
@@ -77,6 +85,8 @@ namespace GUI
                         m[count] = (byte)index;
                     }
 
+                    allBytes[count][p] = index;
+                    p++;
                 }
 
                 count++;

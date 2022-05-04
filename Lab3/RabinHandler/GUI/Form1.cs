@@ -85,11 +85,15 @@ namespace GUI
 
             File.WriteAllBytes(Path + "c.txt", result);
 
-            rtbOutput.Text = "Cipher:\n";
-            foreach (BigInteger b in cipher)
+            if (cbSize.Checked)
             {
-                rtbOutput.Text += b.ToString() + "\n";
+                rtbOutput.Text = "Cipher:\n";
+                foreach (BigInteger b in cipher)
+                {
+                    rtbOutput.Text += b.ToString() + " ";
+                }
             }
+            
         }
 
         private void btnDecrypt_Click(object sender, EventArgs e)
@@ -117,14 +121,30 @@ namespace GUI
             }
 
             handler.Reset(BigInteger.Parse(tbPrime1.Text), BigInteger.Parse(tbPrime2.Text), BigInteger.Parse(tbRan.Text));
-            message = handler.Decrypt(bigCipher);
+
+            List<BigInteger[]> allBytes = new List<BigInteger[]>();
+
+            message = handler.Decrypt(bigCipher, ref allBytes);
 
             File.WriteAllBytes(Path + "m.txt", message);
 
-            rtbOutput.Text += "\nMessage:\n";
-            foreach (byte b in message)
+            if (cbSize.Checked)
             {
-                rtbOutput.Text += b.ToString() + " ";
+                rtbOutput.Text += "\nMessage:\n";
+                foreach (byte b in message)
+                {
+                    rtbOutput.Text += b.ToString() + " ";
+                }
+
+                rtbOutput.Text += "\n\n";
+                foreach (BigInteger[] b in allBytes)
+                {
+                    foreach (BigInteger ex in b)
+                    {
+                        rtbOutput.Text += ex.ToString() + " ";
+                    }
+                    rtbOutput.Text += "\n";
+                }
             }
         }
 
@@ -199,6 +219,11 @@ namespace GUI
                 btnDecrypt.Enabled = true;  
                 btnEncrypt.Enabled = true;
             }
+        }
+
+        private void cbSize_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
