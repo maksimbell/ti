@@ -42,8 +42,47 @@ namespace GUI
 
         private static long sieveBorder = 0;
         private static List<long> primeNumbers = new List<long>();
+        public static void Get_d_s(BigInteger n, out BigInteger d, out int s)
+        {
+            s = 0;
+            d = n - 1;
+            while (d % 2 != 1)
+            {
+                d /= 2;
+                s++;
+            }
+        }
 
-        public static bool IsPrime(int num)
+        public static BigInteger GetRandBigInt()
+        {
+            Random random = new Random();
+
+            byte[] bytes = new byte[256];
+            random.NextBytes(bytes);
+
+            return new BigInteger(bytes);
+        }
+
+        public static bool MillerRabin(BigInteger n)
+        {
+            Get_d_s(n, out var d, out var s);
+            var k = (int)BigInteger.Log(n, 2.8);
+            for (var i = 0; i < k; i++)
+            {
+                var a = BigInteger.ModPow(GetRandBigInt(), d, n);
+                if (a == 1 || a == n - 1) continue;
+                for (var r = 1; r < s; r++)
+                {
+                    if (BigInteger.ModPow(a, d * BigInteger.Pow(2, r), n) == n - 1) goto l;
+                    return false;
+                    l:;
+                }
+            }
+
+            return true;
+        }
+
+        /*public static bool IsPrime(int num)
         {
 
             if (Math.Truncate(Math.Sqrt(num)) > sieveBorder)
@@ -66,7 +105,7 @@ namespace GUI
             }
 
             return true;
-        }
+        }*/
 
         private static void NewEratosphen(long newBorder)
         {
@@ -103,5 +142,68 @@ namespace GUI
             }
         }
 
+        public static BigInteger Power(BigInteger x, BigInteger y, BigInteger p)
+        {
+
+            BigInteger res = 1;
+
+            x = x % p;
+
+            while (y > 0)
+            {
+
+                if ((y & 1) == 1)
+                    res = (res * x) % p;
+
+                y = y >> 1; 
+                x = (x * x) % p;
+            }
+
+            return res;
+        }
+
+        public static bool MillerTest(BigInteger d, BigInteger n)
+        {
+
+            Random r = new Random();
+            BigInteger a = 2 + (int)(r.Next() % (n - 4));
+
+            BigInteger x = Power(a, d, n);
+
+            if (x == 1 || x == n - 1)
+                return true;
+
+            while (d != n - 1)
+            {
+                x = (x * x) % n;
+                d *= 2;
+
+                if (x == 1)
+                    return false;
+                if (x == n - 1)
+                    return true;
+            }
+
+            return false;
+        }
+        public static bool IsPrime(BigInteger n, BigInteger k)
+        {
+
+            if (n <= 1 || n == 4)
+                return false;
+            if (n <= 3)
+                return true;
+
+            BigInteger d = n - 1;
+
+            while (d % 2 == 0)
+                d /= 2;
+
+            for (int i = 0; i < k; i++)
+                if (MillerTest(d, n) == false)
+                    return false;
+
+            return true;
+        }
     }
 }

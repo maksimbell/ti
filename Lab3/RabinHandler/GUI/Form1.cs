@@ -25,13 +25,14 @@ namespace GUI
             string errorString = string.Empty;
 
             
-            //errorString = ArgsChecker.CheckPublicKey(long.Parse(tbPrime1.Text), long.Parse(tbRan.Text), ref error);
+            errorString = ArgsChecker.CheckPublicKey(BigInteger.Parse(tbPrime1.Text) *
+                BigInteger.Parse(tbPrime2.Text), BigInteger.Parse(tbRan.Text), ref error);
             if (error) {
                 MessageBox.Show(errorString, "Warnings");
                 return !error;
             }
 
-            //errorString += ArgsChecker.CheckPrivateKey(long.Parse(tbPrime1.Text), long.Parse(tbPrime2.Text), ref error);
+            errorString += ArgsChecker.CheckPrivateKey(BigInteger.Parse(tbPrime1.Text), BigInteger.Parse(tbPrime2.Text), ref error);
             if (error)
             {
                 MessageBox.Show(errorString, "Warnings");
@@ -61,10 +62,24 @@ namespace GUI
             int current = 0;
             foreach(BigInteger bigInt in cipher)
             {
-                foreach(byte b in bigInt.ToByteArray())
+                int lol = bigInt.GetByteCount();
+                byte[] arr = bigInt.ToByteArray();
+
+                byte[] temp = new byte[1];
+                int count = arr.Length - 1;
+                while (count > -1 && arr[count] == 0)
                 {
-                    result[current] = b;
-                    current++;
+                    Array.Resize(ref arr, arr.Length - 1);
+                    count--;
+                }
+
+                foreach(byte b in arr)
+                {
+                    //if (!(b == 0 && arr.Length != 1))
+                    //{
+                        result[current] = b;
+                        current++;
+                    //}
                 }
             }
 

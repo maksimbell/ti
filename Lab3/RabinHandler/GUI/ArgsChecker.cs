@@ -27,9 +27,9 @@ namespace GUI
         {
             error = true;
 
-            //if (!Calculator.IsPrime(p))
+            if (!Calculator.IsPrime(p, 4))
                 return "Expected: P - prime number";
-            //if (!Calculator.IsPrime(q))
+            if (!Calculator.IsPrime(q, 4))
                 return "Expected: Q - prime number";
             if (p % 4 != 3)
                 return "Expected: P mod 4 == 3";
