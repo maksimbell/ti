@@ -73,14 +73,13 @@ namespace GUI
                     count--;
                 }
 
-                foreach(byte b in arr)
+                result[current] = arr[0];
+                current++;
+                /*foreach(byte b in arr)
                 {
-                    //if (!(b == 0 && arr.Length != 1))
-                    //{
-                        result[current] = b;
-                        current++;
-                    //}
-                }
+                    result[current] = b;
+                    current++;
+                }*/
             }
 
             File.WriteAllBytes(Path + "c.txt", result);
