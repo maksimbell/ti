@@ -83,7 +83,7 @@
             this.tbPrime2.Name = "tbPrime2";
             this.tbPrime2.Size = new System.Drawing.Size(125, 27);
             this.tbPrime2.TabIndex = 4;
-            this.tbPrime2.Text = "523";
+            this.tbPrime2.Text = "1511";
             this.tbPrime2.TextChanged += new System.EventHandler(this.tbPrime2_TextChanged);
             this.tbPrime2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPrime2_KeyPress);
             // 
@@ -93,7 +93,7 @@
             this.tbRan.Name = "tbRan";
             this.tbRan.Size = new System.Drawing.Size(125, 27);
             this.tbRan.TabIndex = 5;
-            this.tbRan.Text = "1";
+            this.tbRan.Text = "173";
             this.tbRan.TextChanged += new System.EventHandler(this.tbRan_TextChanged);
             this.tbRan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbRan_KeyPress);
             // 

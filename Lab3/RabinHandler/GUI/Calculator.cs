@@ -5,27 +5,27 @@ namespace GUI
 {
     public class Calculator
     {
-        public static BigInteger[] PerformEuclid(BigInteger a, BigInteger b)
+        public static long[] PerformEuclid(long a, long b)
         {
-            BigInteger[] GCD = new BigInteger[] { a, b };
-            BigInteger[] ArrA = new BigInteger[] { 1, 0 };
-            BigInteger[] ArrB = new BigInteger[] { 0, 1 };
+            long[] GCD = new long[] { a, b };
+            long[] ArrA = new long[] { 1, 0 };
+            long[] ArrB = new long[] { 0, 1 };
 
             while (GCD[1] != 0)
             {
-                BigInteger quotient = GCD[0] / GCD[1];
-                ArrA = new BigInteger[] { ArrA[1], ArrA[0] - quotient * ArrA[1] };
-                ArrB = new BigInteger[] { ArrB[1], ArrB[0] - quotient * ArrB[1] };
-                GCD = new BigInteger[] { GCD[1], GCD[0] % GCD[1] };
+                long quotient = GCD[0] / GCD[1];
+                ArrA = new long[] { ArrA[1], ArrA[0] - quotient * ArrA[1] };
+                ArrB = new long[] { ArrB[1], ArrB[0] - quotient * ArrB[1] };
+                GCD = new long[] { GCD[1], GCD[0] % GCD[1] };
             }
 
-            BigInteger[] Res = { GCD[0], ArrA[0], ArrB[0] };
+            long[] Res = { GCD[0], ArrA[0], ArrB[0] };
             return Res;
         }
 
-        public static BigInteger PerformFastModExp(BigInteger number, BigInteger power, BigInteger modulo)
+        public static long PerformFastModExp(long number, long power, long modulo)
         {
-            BigInteger Res = 1;
+            long Res = 1;
             while (power != 0)
             {
                 while (power % 2 == 0)
@@ -42,7 +42,7 @@ namespace GUI
 
         private static long sieveBorder = 0;
         private static List<long> primeNumbers = new List<long>();
-        public static void Get_d_s(BigInteger n, out BigInteger d, out int s)
+        public static void Get_d_s(long n, out long d, out int s)
         {
             s = 0;
             d = n - 1;
@@ -53,34 +53,34 @@ namespace GUI
             }
         }
 
-        public static BigInteger GetRandBigInt()
+        /*public static long GetRandBigInt()
         {
             Random random = new Random();
 
             byte[] bytes = new byte[256];
             random.NextBytes(bytes);
 
-            return new BigInteger(bytes);
-        }
+            return new long(bytes);
+        }*/
 
-        public static bool MillerRabin(BigInteger n)
+        /*public static bool MillerRabin(long n)
         {
             Get_d_s(n, out var d, out var s);
-            var k = (int)BigInteger.Log(n, 2.8);
+            var k = (int)long.Log(n, 2.8);
             for (var i = 0; i < k; i++)
             {
-                var a = BigInteger.ModPow(GetRandBigInt(), d, n);
+                var a = long.ModPow(GetRandBigInt(), d, n);
                 if (a == 1 || a == n - 1) continue;
                 for (var r = 1; r < s; r++)
                 {
-                    if (BigInteger.ModPow(a, d * BigInteger.Pow(2, r), n) == n - 1) goto l;
+                    if (long.ModPow(a, d * long.Pow(2, r), n) == n - 1) goto l;
                     return false;
                     l:;
                 }
             }
 
             return true;
-        }
+        }*/
 
         /*public static bool IsPrime(int num)
         {
@@ -106,6 +106,29 @@ namespace GUI
 
             return true;
         }*/
+        public static bool IsPrimeEr(long num)
+        {
+            if (Math.Truncate(Math.Sqrt(num)) > sieveBorder)
+            {
+                NewEratosphen(num);
+                //primeNumbers.Sort();
+            }
+
+            if (num < sieveBorder)
+            {
+                return primeNumbers.Contains(num);
+            }
+
+            for (int i = 0; primeNumbers[i] < Math.Truncate(Math.Sqrt(num)); i++)
+            {
+                if (num % primeNumbers[i] == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         private static void NewEratosphen(long newBorder)
         {
@@ -142,10 +165,10 @@ namespace GUI
             }
         }
 
-        public static BigInteger Power(BigInteger x, BigInteger y, BigInteger p)
+        public static long Power(long x, long y, long p)
         {
 
-            BigInteger res = 1;
+            long res = 1;
 
             x = x % p;
 
@@ -162,13 +185,13 @@ namespace GUI
             return res;
         }
 
-        public static bool MillerTest(BigInteger d, BigInteger n)
+        public static bool MillerTest(long d, long n)
         {
 
             Random r = new Random();
-            BigInteger a = 2 + (int)(r.Next() % (n - 4));
+            long a = 2 + (int)(r.Next() % (n - 4));
 
-            BigInteger x = Power(a, d, n);
+            long x = Power(a, d, n);
 
             if (x == 1 || x == n - 1)
                 return true;
@@ -186,7 +209,7 @@ namespace GUI
 
             return false;
         }
-        public static bool IsPrime(BigInteger n, BigInteger k)
+        public static bool IsPrime(long n, long k)
         {
 
             if (n <= 1 || n == 4)
@@ -194,7 +217,7 @@ namespace GUI
             if (n <= 3)
                 return true;
 
-            BigInteger d = n - 1;
+            long d = n - 1;
 
             while (d % 2 == 0)
                 d /= 2;

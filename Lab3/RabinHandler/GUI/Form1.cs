@@ -1,4 +1,6 @@
-using System.Numerics;
+﻿using System.Numerics;
+using System.Runtime.Serialization.Formatters.Binary;
+using GUI.Serializer;
 
 namespace GUI
 {
@@ -8,11 +10,13 @@ namespace GUI
 
         private RabinHandler handler;
 
-        private int MessageSize;
+        private CustomBinarySerializer<long[]> serializer;
 
         public RabinForm()
         {
             InitializeComponent();
+
+            serializer = new CustomBinarySerializer<long[]>();
         }
 
         private void RabinForm_Load(object sender, EventArgs e)
@@ -25,14 +29,14 @@ namespace GUI
             string errorString = string.Empty;
 
             
-            errorString = ArgsChecker.CheckPublicKey(BigInteger.Parse(tbPrime1.Text) *
-                BigInteger.Parse(tbPrime2.Text), BigInteger.Parse(tbRan.Text), ref error);
+            errorString = ArgsChecker.CheckPublicKey(long.Parse(tbPrime1.Text) *
+                long.Parse(tbPrime2.Text), long.Parse(tbRan.Text), ref error);
             if (error) {
                 MessageBox.Show(errorString, "Warnings");
                 return !error;
             }
 
-            errorString += ArgsChecker.CheckPrivateKey(BigInteger.Parse(tbPrime1.Text), BigInteger.Parse(tbPrime2.Text), ref error);
+            errorString += ArgsChecker.CheckPrivateKey(long.Parse(tbPrime1.Text), long.Parse(tbPrime2.Text), ref error);
             if (error)
             {
                 MessageBox.Show(errorString, "Warnings");
@@ -42,88 +46,53 @@ namespace GUI
             return !error;
         }
 
+
+        /*⠀⠀⠀⣀⡠⠤⠤⠤⠠⠤⠄⠤⠤⠤⡤⣄⠀⠀⠀⠀
+        ⠀⠐⡍⢀⣴⣶⣶⣦⡄⠠⣶⣶⣶⣷⡆⢸⠀⠀⠀⠀
+        ⠀⠀⡇⠙⠿⠿⠏⢻⠃⠀⠉⠛⠛⠛⠁⢸⣀⡏⣆⡀
+        ⠀⢠⠇⠀⠀⠀⢀⣿⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⡇
+        ⢠⡋⢀⠀⠀⠀⣨⣿⣛⣋⣁⢀⠂⠀⠀⣀⡠⠴⠒⠃
+        ⠈⠻⢾⠀⠀⠀⠈⠛⠲⠒⠊⠁⠀⠄⠀⢸⠀⠀⠀⠀
+        ⠀⠀⢸⣀⠀⠀⠐⡟⠒⠒⠒⣷⠀⠀⠀⢘⠀⠀⠀⠀
+        ⠀⠀⠀⠉⠉⠉⠉⠁⠀⠀⠀⠙⠒⠒⠊⠉
+        ⠀*/
+
         private void btnEncrypt_Click(object sender, EventArgs e)
         {
-            if (!CheckFormInput()) {
-                return;
-            }
+            if (!CheckFormInput()) return;
 
+            string cipherText = string.Empty;
             byte[] message = File.ReadAllBytes(Path + "m.txt");
-            BigInteger[] cipher = new BigInteger[message.Length];
+            long[] cipher = new long[message.Length];
 
-            MessageSize = message.Length;
-
-            handler.Reset(BigInteger.Parse(tbPrime1.Text), BigInteger.Parse(tbPrime2.Text), BigInteger.Parse(tbRan.Text));
+            handler.Reset(long.Parse(tbPrime1.Text), long.Parse(tbPrime2.Text), long.Parse(tbRan.Text));
             cipher = handler.Encrypt(message);
 
-            int bigIntSize = cipher[0].ToByteArray().Length;
-            byte[] result = new byte[cipher.Length * bigIntSize];
-
-            int current = 0;
-            foreach(BigInteger bigInt in cipher)
-            {
-                int lol = bigInt.GetByteCount();
-                byte[] arr = bigInt.ToByteArray();
-
-                byte[] temp = new byte[1];
-                int count = arr.Length - 1;
-                while (count > -1 && arr[count] == 0)
-                {
-                    Array.Resize(ref arr, arr.Length - 1);
-                    count--;
-                }
-
-                result[current] = arr[0];
-                current++;
-                /*foreach(byte b in arr)
-                {
-                    result[current] = b;
-                    current++;
-                }*/
-            }
-
-            File.WriteAllBytes(Path + "c.txt", result);
+            serializer.Serialize(cipher, Path + "c.txt");
 
             if (cbSize.Checked)
             {
-                rtbOutput.Text = "Cipher:\n";
-                foreach (BigInteger b in cipher)
+                foreach (long c in cipher)
                 {
-                    rtbOutput.Text += b.ToString() + " ";
+                    cipherText += c.ToString() + " ";
                 }
+                rtbOutput.Text = "Cipher:\n";
+                rtbOutput.Text += cipherText;
             }
-            
+
         }
 
         private void btnDecrypt_Click(object sender, EventArgs e)
         {
-            if (!CheckFormInput())
-            {
-                return;
-            }
-            //fix messagesize problem
-            byte[] cipher = File.ReadAllBytes(Path + "c.txt");
+            if (!CheckFormInput()) return;
+
+            long[] cipher = serializer.Deserialize(Path + "c.txt");
             byte[] message = new byte[cipher.Length];
 
-            BigInteger[] bigCipher = new BigInteger[MessageSize];
-            byte[] temp = new byte[cipher.Length / MessageSize];
+            List<int[]> allBytes = new List<int[]>();
 
-            for(int i = 0; i < MessageSize; i++)
-            {
-                for (int j = 0; j < cipher.Length/MessageSize; j++)
-                {
-                    temp[j] = cipher[(cipher.Length/MessageSize) * i + j];
-                }
-
-                bigCipher[i] = new BigInteger(temp.Concat(new byte[] { 0 }).ToArray());
-                temp = new byte[cipher.Length/MessageSize];
-            }
-
-            handler.Reset(BigInteger.Parse(tbPrime1.Text), BigInteger.Parse(tbPrime2.Text), BigInteger.Parse(tbRan.Text));
-
-            List<BigInteger[]> allBytes = new List<BigInteger[]>();
-
-            message = handler.Decrypt(bigCipher, ref allBytes);
+            handler.Reset(long.Parse(tbPrime1.Text), long.Parse(tbPrime2.Text), long.Parse(tbRan.Text));
+            message = handler.Decrypt(cipher, ref allBytes);
 
             File.WriteAllBytes(Path + "m.txt", message);
 
@@ -136,9 +105,9 @@ namespace GUI
                 }
 
                 rtbOutput.Text += "\n\n";
-                foreach (BigInteger[] b in allBytes)
+                foreach (int[] b in allBytes)
                 {
-                    foreach (BigInteger ex in b)
+                    foreach (int ex in b)
                     {
                         rtbOutput.Text += ex.ToString() + " ";
                     }

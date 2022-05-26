@@ -10,7 +10,7 @@ namespace GUI
 {
     public static class ArgsChecker
     {
-        public static string CheckPublicKey(BigInteger n, BigInteger b, ref bool error)
+        public static string CheckPublicKey(long n, long b, ref bool error)
         {
             error = true;
 
@@ -23,13 +23,13 @@ namespace GUI
             return String.Empty;
         }
 
-        public static string CheckPrivateKey(BigInteger p, BigInteger q, ref bool error)
+        public static string CheckPrivateKey(long p, long q, ref bool error)
         {
             error = true;
 
-            if (!Calculator.IsPrime(p, 4))
+            if (!Calculator.IsPrimeEr(p))
                 return "Expected: P - prime number";
-            if (!Calculator.IsPrime(q, 4))
+            if (!Calculator.IsPrimeEr(q))
                 return "Expected: Q - prime number";
             if (p % 4 != 3)
                 return "Expected: P mod 4 == 3";
